@@ -1,0 +1,196 @@
+/* Reset & base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #f5f5f0;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.landing-page {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ─── Hero ─── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1b3a2d 0%, #2e6b4f 60%, #3d8f69 100%);
+  color: #fff;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  opacity: 0.85;
+  max-width: 560px;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  background-color: #fff;
+  color: #1b3a2d;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #d4edda;
+  color: #1b3a2d;
+}
+
+/* ─── Shared section layout ─── */
+.module-snap,
+.materials {
+  padding: 6rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.module-snap h2,
+.materials h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #1b3a2d;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 3rem;
+}
+
+/* ─── Module Snap ─── */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.module-card {
+  background: #fff;
+  border: 1px solid #e0e0d8;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease;
+}
+
+.module-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.module-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.module-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.module-card p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* ─── Materials ─── */
+.materials {
+  background-color: #f0f4f1;
+  max-width: 100%;
+  padding: 6rem 2rem;
+}
+
+.materials > h2,
+.materials > .section-subtitle {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.materials > .section-subtitle {
+  margin-bottom: 3rem;
+}
+
+.materials-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.material-item {
+  background: #fff;
+  border-left: 4px solid #2e6b4f;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.material-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2e6b4f;
+  background: #d4edda;
+  border-radius: 1rem;
+  padding: 0.2rem 0.7rem;
+  margin-bottom: 0.6rem;
+}
+
+.material-item h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.4rem;
+}
+
+.material-item p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .modules-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .materials-list {
+    grid-template-columns: 1fr;
+  }
+}
