@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
   motion,
   useScroll,
@@ -33,8 +33,21 @@ const PROJECTS = [
   },
 ]
 
-/* ─── Individual card — focus scale as it enters center ──────── */
-function WorkCard({
+/* ─── Responsive hook ────────────────────────────────────────── */
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)")
+    setIsMobile(mq.matches)
+    const h = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener("change", h)
+    return () => mq.removeEventListener("change", h)
+  }, [])
+  return isMobile
+}
+
+/* ─── Horizontal desktop card ────────────────────────────────── */
+function HCard({
   project,
   index,
   scrollYProgress,
@@ -45,18 +58,20 @@ function WorkCard({
 }) {
   const n      = PROJECTS.length
   const center = index / (n - 1)
-  const half   = 0.5
+  const half   = 0.45
 
-  const scale   = useTransform(scrollYProgress, [Math.max(0, center - half), center, Math.min(1, center + half)], [0.88, 1, 0.88])
-  const opacity = useTransform(scrollYProgress, [Math.max(0, center - half), center - 0.12, center + 0.12, Math.min(1, center + half)], [0.35, 1, 1, 0.35])
+  const scale   = useTransform(scrollYProgress,
+    [Math.max(0, center - half), center, Math.min(1, center + half)],
+    [0.88, 1, 0.88])
+  const opacity = useTransform(scrollYProgress,
+    [Math.max(0, center - half), center - 0.1, center + 0.1, Math.min(1, center + half)],
+    [0.3, 1, 1, 0.3])
 
   const { Thumb } = project
 
   return (
     <motion.article className="work-card-h" style={{ scale, opacity }}>
-      <div className="work-thumb-h">
-        <Thumb />
-      </div>
+      <div className="work-thumb-h"><Thumb /></div>
       <div className="work-arrow">↗</div>
       <div className="work-overlay">
         <div className="work-tags">
@@ -69,26 +84,45 @@ function WorkCard({
   )
 }
 
-/* ─── Section ────────────────────────────────────────────────── */
-export default function Work() {
-  const ref = useRef<HTMLElement>(null)
+/* ─── Vertical mobile card ───────────────────────────────────── */
+function VCard({ project }: { project: typeof PROJECTS[number] }) {
+  const { Thumb } = project
+  return (
+    <motion.article
+      className="work-card-v"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="work-thumb-v"><Thumb /></div>
+      <div className="work-overlay">
+        <div className="work-tags">
+          {project.tags.map(t => <span key={t} className="work-tag">{t}</span>)}
+        </div>
+        <p className="work-name">{project.name}</p>
+        <p className="work-meta">{project.year}</p>
+      </div>
+    </motion.article>
+  )
+}
 
+/* ─── Desktop horizontal section ────────────────────────────── */
+function HorizontalWork() {
+  const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   })
 
-  // Horizontal pull — drag 3 cards across the viewport
-  const x = useTransform(scrollYProgress, [0, 1], ["5vw", "-115vw"])
+  const x = useTransform(scrollYProgress, [0, 1], ["5vw", "-112vw"])
 
   return (
     <section ref={ref} className="work-section-h" id="work">
       <div className="work-sticky">
-
-        {/* Section label — fades in from top */}
         <motion.div
           className="work-label"
-          initial={{ opacity: 0, y: -16 }}
+          initial={{ opacity: 0, y: -14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -97,10 +131,9 @@ export default function Work() {
           <a href="#" className="view-all">Zobrazit vše ↗</a>
         </motion.div>
 
-        {/* Horizontal track */}
         <motion.div className="work-track" style={{ x }}>
           {PROJECTS.map((project, i) => (
-            <WorkCard
+            <HCard
               key={project.id}
               project={project}
               index={i}
@@ -109,14 +142,31 @@ export default function Work() {
           ))}
         </motion.div>
 
-        {/* Progress bar */}
         <div className="work-progress">
-          <motion.div
-            className="work-progress-fill"
-            style={{ scaleX: scrollYProgress }}
-          />
+          <motion.div className="work-progress-fill" style={{ scaleX: scrollYProgress }} />
         </div>
       </div>
     </section>
   )
+}
+
+/* ─── Mobile vertical section ───────────────────────────────── */
+function VerticalWork() {
+  return (
+    <section className="work-section-v" id="work">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem" }}>
+        <span className="section-label">Vybrané práce</span>
+        <a href="#" className="view-all">Zobrazit vše ↗</a>
+      </div>
+      <div className="work-grid-v">
+        {PROJECTS.map(p => <VCard key={p.id} project={p} />)}
+      </div>
+    </section>
+  )
+}
+
+/* ─── Root — picks layout based on screen size ───────────────── */
+export default function Work() {
+  const isMobile = useIsMobile()
+  return isMobile ? <VerticalWork /> : <HorizontalWork />
 }

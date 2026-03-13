@@ -9,19 +9,26 @@ const SOCIALS = [
   { label: "LinkedIn", href: "#" },
 ]
 
-/* Split headline into individually animated words */
 const LINE1 = ["Pojďme", "vytvořit"]
-const LINE2 = ["něco", "skvělého."]
+const LINE2 = ["něco",   "skvělého."]
 
-function WordFlip({ word, delay, accent = false }: { word: string; delay: number; accent?: boolean }) {
+function WordFlip({
+  word,
+  delay,
+  accent = false,
+}: {
+  word: string
+  delay: number
+  accent?: boolean
+}) {
   return (
     <span className="contact-word-wrap">
       <motion.span
         className={`contact-word${accent ? " accent-word" : ""}`}
-        initial={{ rotateX: 90, y: 24, opacity: 0 }}
+        initial={{ rotateX: 88, y: 28, opacity: 0 }}
         whileInView={{ rotateX: 0, y: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.72, delay, ease: [0.16, 1, 0.3, 1] }}
       >
         {word}
       </motion.span>
@@ -39,12 +46,11 @@ export default function Contact() {
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.6 }}
       >
         Spojte se se mnou
       </motion.p>
 
-      {/* 3D perspective headline — each word flips in */}
       <h2 className="contact-headline contact-headline-3d">
         <div className="contact-line">
           {LINE1.map((word, i) => (
@@ -63,7 +69,6 @@ export default function Contact() {
         </div>
       </h2>
 
-      {/* Email */}
       <motion.a
         href="mailto:ahoj@grafista.cz"
         className="contact-email"
@@ -71,12 +76,10 @@ export default function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        whileHover={{ color: "var(--accent)" }}
       >
         ahoj@grafista.cz ↗
       </motion.a>
 
-      {/* Socials */}
       <motion.div
         className="contact-socials"
         initial={{ opacity: 0 }}
@@ -85,23 +88,23 @@ export default function Contact() {
         transition={{ duration: 0.7, delay: 0.7 }}
       >
         {SOCIALS.map(({ label, href }, i) => (
-          <span key={label} style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-            {i > 0 && <span className="contact-divider" />}
+          <div key={label} className="social-item">
+            {i > 0 && <span className="contact-divider" aria-hidden="true" />}
             <a href={href} className="social-link">{label}</a>
-          </span>
+          </div>
         ))}
       </motion.div>
 
       <motion.footer
         className="footer"
-        style={{ marginTop: "6rem" }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
+        style={{ marginTop: "5rem" }}
       >
         <span>© 2025 Grafista. Všechna práva vyhrazena.</span>
-        <span>Navrženo & vytvořeno s ♥</span>
+        <span>Navrženo & vytvořeno s láskou</span>
       </motion.footer>
     </section>
   )
