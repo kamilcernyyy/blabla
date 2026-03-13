@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import {
   motion,
+  useMotionValue,
+  useSpring,
   useScroll,
   useTransform,
   type MotionValue,
@@ -46,7 +48,7 @@ function useIsMobile() {
   return isMobile
 }
 
-/* ─── Horizontal desktop card ────────────────────────────────── */
+/* ─── Horizontal desktop card — tilt + glass shine ──────────── */
 function HCard({
   project,
   index,
@@ -56,9 +58,11 @@ function HCard({
   index: number
   scrollYProgress: MotionValue<number>
 }) {
-  const n      = PROJECTS.length
-  const center = index / (n - 1)
-  const half   = 0.45
+  const cardRef  = useRef<HTMLElement>(null)
+  const shineRef = useRef<HTMLDivElement>(null)
+  const n        = PROJECTS.length
+  const center   = index / (n - 1)
+  const half     = 0.45
 
   const scale   = useTransform(scrollYProgress,
     [Math.max(0, center - half), center, Math.min(1, center + half)],
@@ -67,10 +71,42 @@ function HCard({
     [Math.max(0, center - half), center - 0.1, center + 0.1, Math.min(1, center + half)],
     [0.3, 1, 1, 0.3])
 
+  // 3D tilt springs
+  const rotX  = useMotionValue(0)
+  const rotY  = useMotionValue(0)
+  const sRotX = useSpring(rotX, { stiffness: 200, damping: 28 })
+  const sRotY = useSpring(rotY, { stiffness: 200, damping: 28 })
+
+  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x    = (e.clientX - rect.left) / rect.width
+    const y    = (e.clientY - rect.top)  / rect.height
+    rotX.set(-(y - 0.5) * 9)
+    rotY.set( (x - 0.5) * 9)
+    // Direct DOM update for shine — no React re-render
+    if (shineRef.current) {
+      shineRef.current.style.background =
+        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.12) 0%, transparent 52%)`
+    }
+  }
+
+  const onMouseLeave = () => {
+    rotX.set(0)
+    rotY.set(0)
+  }
+
   const { Thumb } = project
 
   return (
-    <motion.article className="work-card-h" style={{ scale, opacity }}>
+    <motion.article
+      ref={cardRef}
+      className="work-card-h"
+      style={{ scale, opacity, rotateX: sRotX, rotateY: sRotY, transformPerspective: 900 }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      <div ref={shineRef} className="work-card-shine" />
       <div className="work-thumb-h"><Thumb /></div>
       <div className="work-arrow">↗</div>
       <div className="work-overlay">
