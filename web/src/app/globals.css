@@ -385,35 +385,13 @@ body::before {
   to   { transform: translateX(-50%) }
 }
 
-/* ─── Work ───────────────────────────────────────────────────── */
-.work-section {
-  padding: 8rem 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
+/* ─── Shared section utilities ────────────────────────────────── */
 .section-label {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 0.75rem;
-}
-
-.section-title {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  margin-bottom: 3.5rem;
-  line-height: 1.05;
-}
-
-.section-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 3.5rem;
 }
 
 .view-all {
@@ -423,69 +401,221 @@ body::before {
   align-items: center;
   gap: 6px;
   transition: color 0.2s, gap 0.2s;
-  padding-bottom: 0.2rem;
 }
 .view-all:hover { color: var(--fg); gap: 10px; }
 
-.work-grid {
-  display: grid;
-  grid-template-columns: 1.55fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 1rem;
+/* ─── Hero overlay (portal blackout) ─────────────────────────── */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: #080808;
+  z-index: 20;
+  pointer-events: none;
 }
 
-.work-card {
+/* ─── Services (sticky 3-panel) ──────────────────────────────── */
+.services-section {
   position: relative;
-  border-radius: 12px;
+  height: 300vh;
+}
+
+.services-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+
+.service-panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0 6vw;
+  gap: 4vw;
+  will-change: opacity, transform;
+}
+
+.service-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.service-num {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(240, 240, 240, 0.06);
+  display: block;
+  margin-bottom: -0.5rem;
+  user-select: none;
+}
+
+.service-title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.service-desc {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 44ch;
+}
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.service-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--muted);
+}
+
+.service-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-svg {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+}
+
+/* Progress dots */
+.services-dots {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+.services-dot-wrap {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.services-dot-active {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ─── Work (horizontal scroll) ───────────────────────────────── */
+.work-section-h {
+  position: relative;
+  height: 300vh;
+}
+
+.work-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-bottom: 4rem;
+}
+
+.work-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+}
+
+.work-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-left: 5vw;
+  will-change: transform;
+}
+
+.work-card-h {
+  flex-shrink: 0;
+  width: 58vw;
+  height: 65vh;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
+  position: relative;
   cursor: none;
+  will-change: transform, opacity;
 }
 
-.work-card:nth-child(3) {
-  grid-column: 1 / -1;
+.work-card-h:hover .work-arrow  { opacity: 1; transform: scale(1); background: rgba(240,240,240,0.08); }
+.work-card-h:hover .work-overlay {
+  background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.1) 60%);
 }
 
-.work-thumb {
+.work-thumb-h {
   width: 100%;
-  aspect-ratio: 4/3;
+  height: 100%;
   overflow: hidden;
   transition: transform 0.6s var(--ease-out-expo);
   display: block;
   line-height: 0;
 }
 
-.work-thumb svg {
+.work-thumb-h svg {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
 }
 
-.work-card:nth-child(3) .work-thumb { aspect-ratio: 21/6; }
-.work-card:nth-child(2) .work-thumb { aspect-ratio: 3/4; }
+.work-card-h:hover .work-thumb-h { transform: scale(1.03); }
 
-.work-card:hover .work-thumb { transform: scale(1.04); }
-
+/* Shared work info styles (used by both layouts) */
 .work-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 55%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.5rem;
+  padding: 2rem;
   transition: background 0.3s;
-}
-
-.work-card:hover .work-overlay {
-  background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.1) 60%);
 }
 
 .work-tags {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .work-tag {
@@ -500,10 +630,10 @@ body::before {
 
 .work-name {
   font-family: var(--font-display), system-ui, sans-serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
 }
 
 .work-meta {
@@ -513,26 +643,39 @@ body::before {
 
 .work-arrow {
   position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  width: 36px;
-  height: 36px;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--fg);
   opacity: 0;
   transform: scale(0.8);
   transition: opacity 0.25s, transform 0.25s var(--ease-out-expo), background 0.2s;
 }
 
-.work-card:hover .work-arrow {
-  opacity: 1;
-  transform: scale(1);
-  background: rgba(240,240,240,0.08);
+/* Scroll progress bar */
+.work-progress {
+  position: absolute;
+  bottom: 2rem;
+  left: 5vw;
+  right: 5vw;
+  height: 1px;
+  background: var(--border);
+  border-radius: 1px;
+}
+
+.work-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(200, 255, 0, 0.5);
 }
 
 /* ─── Contact ────────────────────────────────────────────────── */
@@ -565,6 +708,31 @@ body::before {
   letter-spacing: -0.04em;
   line-height: 1;
   margin-bottom: 3rem;
+}
+
+/* 3D perspective word reveal */
+.contact-headline-3d {
+  perspective: 900px;
+  margin-bottom: 3rem;
+}
+
+.contact-line {
+  display: flex;
+  justify-content: center;
+  gap: 0.35em;
+  flex-wrap: wrap;
+}
+
+.contact-word-wrap {
+  display: inline-block;
+  overflow: visible;
+  perspective: 800px;
+}
+
+.contact-word {
+  display: inline-block;
+  transform-origin: top center;
+  will-change: transform, opacity;
 }
 
 .contact-headline em {
@@ -627,12 +795,22 @@ body::before {
   .nav-links { display: none; }
   .nav { padding: 1rem 1.5rem; }
 
-  .work-grid {
+  /* Services — stack on mobile */
+  .service-panel {
     grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+    align-items: flex-start;
+    justify-items: center;
   }
-  .work-card:nth-child(3) { grid-column: 1; }
-  .work-card:nth-child(3) .work-thumb { aspect-ratio: 4/3; }
+  .service-visual { display: none; }
+  .service-num { font-size: 5rem; }
 
-  .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .work-section, .contact-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  /* Work horizontal — shrink cards */
+  .work-card-h {
+    width: 80vw;
+    height: 55vh;
+  }
+
+  .contact-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .contact-line { gap: 0.2em; }
 }
