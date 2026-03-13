@@ -1,11 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Logo from "./Logo"
 
 const links = [
-  { label: "Work",     href: "#work"    },
-  { label: "About",    href: "#about"   },
-  { label: "Contact",  href: "#contact" },
+  { label: "Práce",    href: "#work"    },
+  { label: "O mně",   href: "#about"   },
+  { label: "Kontakt", href: "#contact" },
 ]
 
 export default function Navbar() {
@@ -16,17 +17,14 @@ export default function Navbar() {
       animate={{ opacity: 1,  y:   0 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Logo */}
       <motion.a
         href="/"
-        className="nav-logo"
         whileHover={{ scale: 1.03 }}
         transition={{ duration: 0.2 }}
       >
-        Studio<span>.</span>
+        <Logo />
       </motion.a>
 
-      {/* Links */}
       <ul className="nav-links">
         {links.map(({ label, href }, i) => (
           <motion.li
@@ -40,7 +38,6 @@ export default function Navbar() {
         ))}
       </ul>
 
-      {/* CTA pill */}
       <motion.a
         href="#contact"
         className="nav-cta"
@@ -50,7 +47,7 @@ export default function Navbar() {
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
       >
-        Available ↗
+        K dispozici ↗
       </motion.a>
     </motion.nav>
   )

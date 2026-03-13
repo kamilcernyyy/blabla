@@ -3,10 +3,10 @@
 import { motion } from "framer-motion"
 
 const SOCIALS = [
-  { label: "Twitter",  href: "#" },
-  { label: "Dribbble", href: "#" },
-  { label: "GitHub",   href: "#" },
-  { label: "LinkedIn", href: "#" },
+  { label: "Twitter",   href: "#" },
+  { label: "Dribbble",  href: "#" },
+  { label: "GitHub",    href: "#" },
+  { label: "LinkedIn",  href: "#" },
 ]
 
 export default function Contact() {
@@ -14,7 +14,6 @@ export default function Contact() {
     <section className="contact-section" id="contact">
       <div className="contact-glow" />
 
-      {/* Eyebrow */}
       <motion.p
         className="contact-eyebrow"
         initial={{ opacity: 0 }}
@@ -22,10 +21,9 @@ export default function Contact() {
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7 }}
       >
-        Get in touch
+        Spojte se se mnou
       </motion.p>
 
-      {/* Headline — word-by-word reveal */}
       <div style={{ overflow: "hidden", marginBottom: "2.5rem" }}>
         <motion.h2
           className="contact-headline"
@@ -34,14 +32,13 @@ export default function Contact() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          Let&apos;s build something{" "}
-          <em>great</em>.
+          Pojďme vytvořit něco{" "}
+          <em>skvělého</em>.
         </motion.h2>
       </div>
 
-      {/* Email */}
       <motion.a
-        href="mailto:hello@studio.com"
+        href="mailto:ahoj@grafista.cz"
         className="contact-email"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -49,10 +46,9 @@ export default function Contact() {
         transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         whileHover={{ color: "var(--accent)" }}
       >
-        hello@studio.com ↗
+        ahoj@grafista.cz ↗
       </motion.a>
 
-      {/* Socials */}
       <motion.div
         className="contact-socials"
         initial={{ opacity: 0 }}
@@ -68,7 +64,6 @@ export default function Contact() {
         ))}
       </motion.div>
 
-      {/* Footer strip */}
       <motion.footer
         className="footer"
         style={{ marginTop: "6rem" }}
@@ -77,8 +72,8 @@ export default function Contact() {
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <span>© 2025 Studio. All rights reserved.</span>
-        <span>Designed & built with ♥</span>
+        <span>© 2025 Grafista. Všechna práva vyhrazena.</span>
+        <span>Navrženo & vytvořeno s ♥</span>
       </motion.footer>
     </section>
   )

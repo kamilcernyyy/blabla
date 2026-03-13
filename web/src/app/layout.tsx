@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Studio — Graphic Designer & Web Developer",
+  title: "Grafista — Grafický designér & webový vývojář",
   description:
-    "Creative portfolio. Crafting digital experiences that blend aesthetics with function.",
+    "Kreativní portfolio. Tvořím digitální zážitky na rozhraní estetiky a funkce.",
 }
 
 export default function RootLayout({

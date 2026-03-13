@@ -9,14 +9,10 @@ import {
   useScroll,
 } from "framer-motion"
 
-/* ─── Animation variants ──────────────────────────────────────── */
 const headlineContainer = {
   hidden: {},
   show: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.45,
-    },
+    transition: { staggerChildren: 0.12, delayChildren: 0.45 },
   },
 }
 
@@ -25,26 +21,20 @@ const wordVariant = {
   show: {
     y: "0%",
     rotate: 0,
-    transition: {
-      duration: 0.9,
-      ease: [0.16, 1, 0.3, 1],
-    },
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
   },
 }
 
-/* ─── Component ───────────────────────────────────────────────── */
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
 
-  /* Parallax on scroll-out */
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   })
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"])
+  const contentY       = useTransform(scrollYProgress, [0, 1],    ["0%", "18%"])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0])
 
-  /* Mouse-parallax for blobs */
   const mx = useMotionValue(0.5)
   const my = useMotionValue(0.5)
 
@@ -66,14 +56,12 @@ export default function Hero() {
 
   return (
     <section className="hero" ref={sectionRef}>
-      {/* ── Animated background blobs ── */}
       <div className="hero-bg">
         <motion.div className="blob blob-1" style={{ x: b1x, y: b1y }} />
         <motion.div className="blob blob-2" style={{ x: b2x, y: b2y }} />
         <motion.div className="blob blob-3" style={{ x: b3x, y: b3y }} />
       </div>
 
-      {/* ── Content — scrolls away with parallax ── */}
       <motion.div
         className="hero-content"
         style={{ y: contentY, opacity: contentOpacity }}
@@ -86,10 +74,10 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <span className="badge-dot" />
-          Available for work — 2025
+          K dispozici pro spolupráci — 2025
         </motion.div>
 
-        {/* Headline — clip-based word reveal */}
+        {/* Headline */}
         <motion.h1
           className="hero-headline"
           variants={headlineContainer}
@@ -97,9 +85,9 @@ export default function Hero() {
           animate="show"
         >
           {[
-            { text: "Graphic",   accent: false },
-            { text: "Designer",  accent: true  },
-            { text: "& Developer", accent: false },
+            { text: "Grafický",    accent: false },
+            { text: "Designér",   accent: true  },
+            { text: "& Vývojář",  accent: false },
           ].map(({ text, accent }) => (
             <span key={text} className="word-line">
               <motion.span
@@ -119,8 +107,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
         >
-          Crafting digital experiences that blend aesthetics with function.
-          Clean visuals. Smooth interactions. Real results.
+          Tvořím digitální zážitky na rozhraní estetiky a funkce.
+          Čistá grafika. Plynulé interakce. Skutečné výsledky.
         </motion.p>
 
         {/* CTAs */}
@@ -136,7 +124,7 @@ export default function Hero() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
           >
-            View Work →
+            Zobrazit práce →
           </motion.a>
           <motion.a
             href="#contact"
@@ -144,12 +132,12 @@ export default function Hero() {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
-            Get in Touch
+            Napište mi
           </motion.a>
         </motion.div>
       </motion.div>
 
-      {/* ── Scroll indicator ── */}
+      {/* Scroll indicator */}
       <motion.div
         className="hero-scroll"
         initial={{ opacity: 0 }}
@@ -161,7 +149,7 @@ export default function Hero() {
           animate={{ scaleY: [0, 1, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
         />
-        <span>Scroll</span>
+        <span>Scrolluj</span>
       </motion.div>
     </section>
   )

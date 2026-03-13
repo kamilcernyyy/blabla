@@ -1,17 +1,16 @@
 "use client"
 
 const ITEMS = [
-  "Graphic Design",
-  "Web Development",
-  "UI / UX",
-  "Motion Design",
-  "Brand Identity",
-  "Creative Direction",
-  "Typography",
-  "Interaction Design",
+  "Grafický design",
+  "Webový vývoj",
+  "UI / UX design",
+  "Motion design",
+  "Firemní identita",
+  "Kreativní vedení",
+  "Typografie",
+  "Tvorba webu",
 ]
 
-/* Duplicate for seamless loop */
 const ALL = [...ITEMS, ...ITEMS]
 
 export default function Marquee() {
