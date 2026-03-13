@@ -1,3 +1,6 @@
+/* ─── Google Fonts ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 /* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
   --bg: #080808;
@@ -5,8 +8,8 @@
   --accent: #c8ff00;
   --muted: rgba(240, 240, 240, 0.38);
   --border: rgba(240, 240, 240, 0.08);
-  --font-display: var(--font-space-grotesk);
-  --font-body: var(--font-inter);
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -24,7 +27,7 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-body);
   cursor: none;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -111,7 +114,7 @@ body::before {
 }
 
 .nav-logo {
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -240,9 +243,9 @@ body::before {
 }
 
 .hero-headline {
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(3.8rem, 10.5vw, 10rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.04em;
   margin-bottom: 2rem;
@@ -393,9 +396,9 @@ body::before {
 }
 
 .section-title {
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(2.2rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.03em;
   margin-bottom: 3.5rem;
   line-height: 1.05;
@@ -460,9 +463,9 @@ body::before {
   align-items: center;
   justify-content: center;
   opacity: 0.35;
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.04em;
   color: #fff;
 }
@@ -500,7 +503,7 @@ body::before {
 }
 
 .work-name {
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -560,9 +563,9 @@ body::before {
 }
 
 .contact-headline {
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(2.8rem, 7.5vw, 7.5rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
   margin-bottom: 3rem;
@@ -577,7 +580,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(1rem, 2.5vw, 1.5rem);
   font-weight: 600;
   letter-spacing: -0.02em;
